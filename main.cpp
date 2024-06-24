@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include "colormanager.h"
+#include <QTimer>
 
 int main(int argc, char *argv[])
 {
@@ -12,9 +13,12 @@ int main(int argc, char *argv[])
 
     ColorManager colorManager;
 
+    colorManager.checkTimer();
+
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("colorManager", &colorManager);
     const QUrl url(QStringLiteral("qrc:/main.qml"));
+
     QObject::connect(
         &engine,
         &QQmlApplicationEngine::objectCreated,

@@ -3,6 +3,7 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 #include <QDebug>
+#include <QTimer>
 
 ColorManager::ColorManager(QObject *parent) : QObject(parent), m_filePath("color.json") {
     connect(&m_watcher, &QFileSystemWatcher::fileChanged, this, &ColorManager::readColorFromFile);
@@ -42,3 +43,12 @@ void ColorManager::readColorFromFile() {
         qWarning() << "JSON does not contain a valid color string";
     }
 }
+
+void ColorManager::checkTimer()
+{
+    qDebug() << "Timer has started";
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &ColorManager::readColorFromFile);
+    timer->start(3000);
+}
+

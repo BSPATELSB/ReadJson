@@ -13,6 +13,7 @@ public:
     explicit ColorManager(QObject *parent = nullptr);
 
     QColor color() const;
+    void checkTimer();
 
 signals:
     void colorChanged();
